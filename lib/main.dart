@@ -1,6 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:youtube_clone_app/binding/init_binding.dart';
+import 'package:youtube_clone_app/src/app.dart';
 
 // import 'video_list.dart';
 
@@ -17,7 +19,9 @@ class MyApp extends StatelessWidget {
           primaryColor: Colors.white,
           primarySwatch: Colors.blue,
           visualDensity: VisualDensity.adaptivePlatformDensity),
-      home: Container(),
+      initialBinding: InitBinding(),
+      getPages: [GetPage(name: "/", page: () => App())],
+      initialRoute: "/",
     );
   }
 }
