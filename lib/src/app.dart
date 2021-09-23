@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get_state_manager/get_state_manager.dart';
-import 'package:youtube_clone_app/controller/app_controller.dart';
+import 'package:youtube_clone_app/src/controller/app_controller.dart';
+import 'package:youtube_clone_app/src/pages/explore.dart';
+import 'package:youtube_clone_app/src/pages/home.dart';
+import 'package:youtube_clone_app/src/pages/library.dart';
+import 'package:youtube_clone_app/src/pages/subscribe.dart';
 
 class App extends GetView<AppController> {
   const App({Key? key}) : super(key: key);
@@ -9,9 +13,22 @@ class App extends GetView<AppController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          title: Text("Home"),
-        ),
+        body: Obx(() {
+          switch (RouteName.values[controller.currentIndex.value]) {
+            case RouteName.Home:
+              return Home();
+            case RouteName.Explore:
+              return Explore();
+            case RouteName.Add:
+              // BottomSheet 를 사용할 예정
+              break;
+            case RouteName.Subs:
+              return Subscribe();
+            case RouteName.Library:
+              return Library();
+          }
+          return Container();
+        }),
         bottomNavigationBar: Obx(() => BottomNavigationBar(
               type: BottomNavigationBarType.fixed,
               currentIndex: controller.currentIndex.value,
@@ -23,7 +40,9 @@ class App extends GetView<AppController> {
               selectedItemColor: Colors.black,
               items: [
                 BottomNavigationBarItem(
-                    icon: SvgPicture.asset("assets/svg/icons/home_off.svg"),
+                    icon: SvgPicture.asset(
+                      "assets/svg/icons/home_off.svg",
+                    ),
                     activeIcon: SvgPicture.asset("assets/svg/icons/home_on.svg"),
                     label: "홈"),
                 BottomNavigationBarItem(
